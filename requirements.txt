@@ -4,5 +4,6 @@ six
 wheel
 mock
 h5py
+keras
 keras-applications
 keras-preprocessing
