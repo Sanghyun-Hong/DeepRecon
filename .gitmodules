@@ -1,3 +1,6 @@
 [submodule "Mastik"]
 	path = Mastik
 	url = https://github.com/Sanghyun-Hong/Mastik.git
+[submodule "tensorflow"]
+	path = tensorflow
+	url = https://github.com/tensorflow/tensorflow.git
