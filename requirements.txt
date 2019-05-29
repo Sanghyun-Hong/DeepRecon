@@ -1,0 +1,8 @@
+enum34
+numpy
+six
+wheel
+mock
+h5py
+keras-applications
+keras-preprocessing
