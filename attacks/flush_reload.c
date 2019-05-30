@@ -33,7 +33,7 @@
  * (Note: these can be the source code --- ex. "mpih−mul.c:85")
  */
 char *monitor[] = {
-  "TF_NewSession",
+  "_ZN10tensorflow12_GLOBAL__N_117RunCallableHelperEPNS_7SessionElP7_objectP9TF_StatusPNS_3gtl13InlinedVectorIS4_Li8EEEP9TF_Buffer",
   "_ZN10tensorflow6BiasOpIN5Eigen16ThreadPoolDeviceEfE7ComputeEPNS_15OpKernelContextE",
   "_ZN10tensorflow9SoftmaxOpIN5Eigen16ThreadPoolDeviceEfE7ComputeEPNS_15OpKernelContextE",
   "_ZN10tensorflow18UnaryElementWiseOpIfNS_6ReluOpIN5Eigen16ThreadPoolDeviceEfEEE7ComputeEPNS_15OpKernelContextE",
@@ -57,7 +57,7 @@ char *monitor[] = {
  *  Attributes for the monitored functions
  */
 char *_monitor_attrs[] = {
-  "NewSession",
+  "RunCallableHelper",
   "Bias",
   "Softmax",
   "Relu",
