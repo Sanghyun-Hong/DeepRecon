@@ -1,38 +1,41 @@
-# Project: DeepRecon
+## [Preprint] Security Analysis of Deep Neural Networks Operating in the Presence of Cache Side-Channel Attacks
 
-**Security Analysis of Deep Neural Networks Operating in the Presence of Cache Side-Channel Attacks**
+This repository includes the code for the paper </br>
+[_Security Analysis of Deep Neural Networks Operating in the Presence of Cache Side-Channel Attacks_](https://arxiv.org/abs/1810.03487)
+
+**Authors:** [Sanghyun Hong](http://sanghyun-hong.com), Michael Davinroy, [Yigitcan Kaya](http://www.cs.umd.edu/~yigitcan), Stuart Nevans Locke, Ian Rackow, Kevin Kulda, [Dana Dachman-Soled](https://user.eng.umd.edu/~danadach/), and [Tudor Dumitras](http://users.umiacs.umd.edu/~tdumitra/). </br>
+**Contact:** [Sanghyun Hong](mailto:shhong@cs.umd.edu), [Michael Davinroy](mailto:michael.davinroy@gmail.com)
+
+
+## About
 
 DeepRecon is an exemplary attack that reconstructs the architecture of the victim's DNN by using the internal information extracted via Flush+Reload, a cache side-channel technique. DeepRecon observes function invocations that map directly to architecture attributes of the victim network so that the attacker can reconstruct the victim's entire network architecture from her observations.
 
-This repository is for the following paper:
+---
 
-*Security Analysis of Deep Neural Networks Operating in the Presence of Cache Side-Channel Attacks.* </br>
-*[Sanghyun Hong](http://sanghyun-hong.com), Michael Davinroy, [Yigitcan Kaya](http://www.cs.umd.edu/~yigitcan), Stuart Nevans Locke, Ian Rackow, Kevin Kulda, [Dana Dachman-Soled](https://user.eng.umd.edu/~danadach/), and [Tudor Dumitras](http://users.umiacs.umd.edu/~tdumitra/).* </br>
-[arXiv:1810.03487](https://arxiv.org/abs/1810.03487)
+## Prerequisites
 
-----
 
-## 1. Runtime Environment
+### 1. Runtime Environment
 
  - Ubuntu 16.04
  - Python 2.7.15-rc1
  - TensorFlow 1.10.0
  - Mastik v0.0.2
 
-----
 
-## 2. Preparations
+### 2. Preparations
 
 To run DeepRecon, we require two preparation steps:
 
  1. Compiling TensorFlow from source to extract (only) the symbol table in use
  2. Compiling the attack code with the support of the off-the-shelf Flush+Reload library (Mastik).
 
-### 2.1. Build TensorFlow from Source
+#### 2.1. Build TensorFlow from Source
 
 The official instructions on building TensorFlow can be found at this [website](https://www.tensorflow.org/install/install_sources).
 
-#### 2.1.1 Install Bazel
+##### 2.1.1 Install Bazel
 
 Bazel is Google's build system, required to build TensorFlow. Building TensorFlow usually requires an up-to-date
 version of Bazel; there is a good chance that whatever your package manager provides will be outdated. There are various ways to obtain a build of Bazel (see https://bazel.build/versions/master/docs/install-ubuntu.html).
@@ -40,11 +43,11 @@ version of Bazel; there is a good chance that whatever your package manager prov
 Note: we use the specific version of Bazel (**v0.16.1**). You can download and install from [here](https://github.com/bazelbuild/bazel/releases/tag/0.16.1).
 
 
-#### 2.1.2 Install Python Packages
+##### 2.1.2 Install Python Packages
 
       $ pip install -r requirements.txt
 
-#### 2.1.3 Build and Install TensorFlow w. Bazel
+##### 2.1.3 Build and Install TensorFlow w. Bazel
 
 Run the configuration script (currently, we disable all the features) under the *tensorflow* dir.
 [Note: we recommend to use Python virtual environment, to suppress the conflicts with your system.]
@@ -64,16 +67,16 @@ Now there will be a package inside /tmp/tensorflow_pkg, which can be installed w
       $ pip install /tmp/tensorflow_pkg/tensorflow-<version>-<architecture>.whl
 
 
-### 2.2. Compile the Attack Source
+#### 2.2. Compile the Attack Source
 
 Our attack reconstructs the DNN's architecture from the extracted attributes via Flush+Reload. We first build Mastik library that implements side-channel attacks and incorporate the library into the extraction code.
 
-#### 2.2.1 Build Mastik
+##### 2.2.1 Build Mastik
 
       $ ./build_mastik.sh
 
 
-#### 2.2.2 Build Attack Code
+##### 2.2.2 Build Attack Code
 
       $ cd attacks
       $ make
@@ -81,7 +84,7 @@ Our attack reconstructs the DNN's architecture from the extracted attributes via
 ----
 
 
-## 3. Running DeepRecon
+## Running DeepRecon
 
 Run the inference with the model using a sample (mug.jpg).
 [Note that in the real-attack, we do not need to query the victim model; this can be achieved by a user's query while we are passively monitoring the cache behaviors.]
@@ -133,11 +136,11 @@ The extracted data stored into the *accesses.raw.csv* file.
 
 ----
 
-## 4. Running Defenses
+## Running Defenses
 
 To test the effectiveness of defenses, run the decoy processes during the above attack times or run the unraveled models instead of running the off-the-shelf model available on the Internet.
 
-### 4.1 Run Decoy Processes
+#### 1 Run Decoy Processes
 
 Run the scripts in the *defenses/decoys* along with the victim network.
 
@@ -145,9 +148,10 @@ Run the scripts in the *defenses/decoys* along with the victim network.
   2. **tiny_relus.py**: convolutional layer + ReLU activation.
   3. **tiny_merges.py**: convolutional layer + ReLU activation + skip-connections.
 
-### 4.2 Do Obfuscations Based on the Unraveling Method
+#### 2. Do Obfuscations Based on the Unraveling Method
 
 Run the **unravel_resnet50.py** script in the *defenses/obfuscations* and extract the architecture attributes.
+
 
 ----
 
@@ -176,5 +180,9 @@ You are encouraged to cite our paper if you use **DeepRecon** for academic resea
   timestamp = {Tue, 30 Oct 2018 10:49:09 +0100},
 }
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 **Fin.**
